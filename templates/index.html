@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Create a polished profile card from your details.">
+    <title>User Profile Card Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="page-header">
+        <p class="eyebrow">A little introduction</p>
+        <h1>User Profile Card Generator</h1>
+        <p class="intro">Share a few details and create a profile card you can be proud of.</p>
+      </header>
+
+      <div class="workspace">
+        <section class="panel form-panel" aria-labelledby="form-title">
+          <div class="section-heading">
+            <span class="step-number" aria-hidden="true">01</span>
+            <div>
+              <h2 id="form-title">Your details</h2>
+              <p>Fields marked with <span aria-hidden="true">*</span> are required.</p>
+            </div>
+          </div>
+
+          <form id="profile-form" novalidate>
+            <div class="field">
+              <label for="name">Full name <span aria-hidden="true">*</span></label>
+              <input id="name" name="name" type="text" maxlength="80"
+                     placeholder="e.g. Jordan Lee" autocomplete="name" required>
+              <p class="field-error" id="name-error"></p>
+            </div>
+
+            <div class="field">
+              <label for="role">Role or designation</label>
+              <input id="role" name="role" type="text" maxlength="80"
+                     placeholder="e.g. Product Designer">
+              <p class="field-error" id="role-error"></p>
+            </div>
+
+            <div class="field">
+              <label for="bio">Short bio <span aria-hidden="true">*</span></label>
+              <textarea id="bio" name="bio" rows="4" maxlength="300"
+                        placeholder="A few words about what you do and what you love..." required></textarea>
+              <div class="field-footer">
+                <p class="field-error" id="bio-error"></p>
+                <span class="character-count" id="bio-count">0 / 300</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="image_url">Profile image URL</label>
+              <input id="image_url" name="image_url" type="url" maxlength="2048"
+                     placeholder="https://example.com/photo.jpg" inputmode="url">
+              <p class="field-hint">Use an image hosted at an HTTP or HTTPS address.</p>
+              <p class="field-error" id="image_url-error"></p>
+            </div>
+
+            <div class="field">
+              <label for="skills">Skills</label>
+              <input id="skills" name="skills" type="text" maxlength="300"
+                     placeholder="e.g. Research, Figma, Prototyping">
+              <p class="field-hint">Separate skills with commas (up to 12).</p>
+              <p class="field-error" id="skills-error"></p>
+            </div>
+
+            <div class="form-message" id="form-message" role="alert" aria-live="polite"></div>
+            <button class="submit-button" id="submit-button" type="submit">
+              <span class="button-label">Generate Profile Card</span>
+              <span class="button-spinner" aria-hidden="true"></span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </form>
+        </section>
+
+        <section class="panel preview-panel" aria-labelledby="preview-title">
+          <div class="section-heading">
+            <span class="step-number" aria-hidden="true">02</span>
+            <div>
+              <h2 id="preview-title">Your profile card</h2>
+              <p>Your finished card will appear here.</p>
+            </div>
+          </div>
+
+          <div class="preview-area" id="preview-area" aria-live="polite">
+            <div class="placeholder" id="placeholder">
+              <div class="placeholder-icon" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <h3>Your card is taking shape</h3>
+              <p>Fill in your details and select <strong>Generate Profile Card</strong> to see your preview.</p>
+            </div>
+
+            <article class="profile-card" id="profile-card" hidden>
+              <div class="card-topline"></div>
+              <div class="profile-card-content">
+                <img class="avatar" id="profile-image" src="{{ url_for('static', filename='avatar.svg') }}"
+                     alt="Profile avatar">
+                <h3 class="profile-name" id="profile-name"></h3>
+                <p class="profile-role" id="profile-role" hidden></p>
+                <p class="profile-bio" id="profile-bio"></p>
+                <div class="skills-section" id="skills-section" hidden>
+                  <h4>Skills</h4>
+                  <ul class="skill-list" id="skill-list"></ul>
+                </div>
+              </div>
+              <div class="card-footer"><span class="footer-dot"></span> Profile card</div>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <footer class="page-footer">Your details stay in this session and are not saved.</footer>
+    </main>
+  </body>
+</html>
